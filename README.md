@@ -26,10 +26,10 @@ Ahora instala los requerimientos de python en tu ambiente virtual utilizando el 
 
 Por último correr la aplicación en django ejecutando "run server 0:80" en el archivo **<manage.py>**
 
-** python manage.py runserver 0:80 **
+**python manage.py runserver 0:80**
 
-Accesar a la ruta http://localhost y visualizar el sistema
+Accesar a la ruta *http://localhost* y visualizar el sistema
 
-Si tienes problemas con la instalación del proyecto, comunicate conmigo al correo 4c1dhydr4@gmail.com
+Si tienes problemas con la instalación del proyecto, comunicate conmigo al correo *4c1dhydr4@gmail.com*
 
 
