@@ -1,0 +1,18 @@
+{% extends 'base/base.html' %}
+{% block content %}
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2 col-sm-12 col-xs-12">
+      <div class="jumbotron">
+        <h1 class="display-3">Eliminar Cámara</h1>
+        <p class="lead">Elimina registro de cámaras</p>
+        <hr class="my-4">
+			<form action="" method="post">{% csrf_token %}
+    		<p>¿Seguro que deseas eliminar "{{ object }} - {{ object.ip }}"? del sistema?</p>
+    		<input type="submit" class="btn btn-outline btn-danger" value="Eliminar"/>
+    		<button class="btn btn-outline btn-primary" onclick="window.history.back();" type="button">Cancelar</button>
+			</form>
+
+      </div>
+    </div>
+  </div>
+{% endblock %}

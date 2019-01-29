@@ -1,0 +1,136 @@
+{% extends 'base/base.html' %}
+{% load staticfiles %}
+{% block content %}
+	<div class="row">
+		<div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2 col-sm-12 col-xs-12">
+			<div class="jumbotron">
+			  <h1 class="display-3">Reporte de Tráfico</h1>
+			  <p class="lead">Seleccione la locación a la que desea realizar el reporte con la fecha correspondiente de acceso a los datos:</p>
+			  <hr class="my-4">
+			    <div class="row">
+			    	<div class="row">
+			    		<div class="col-lg-4 offset-lg-2">
+			    			<p>Desde: <input type="text" id="datepicker1"></p>
+			    		</div>
+			    		<div class="col-lg-2 offset-lg-4">
+			    			<p>Hasta: <input type="text" id="datepicker2"></p>
+			    		</div>
+			    	</div>
+			    	<div class="col-lg-12">
+			    		<table class="table table-hover">
+			    			<thead>
+			    			  <tr>
+			    			    <th class="table-success">Locación</th>
+			    			    <th class="table-warning">IP</th>
+			    			    <th class="table-danger">Orientación</th>
+			    			    <th class="table-primary">Status</th>
+			    			    <th class="table-active">Opciones</th>
+			    			  </tr>
+			    			</thead>
+			    			<tbody>
+			    				{% for cam in cams %}
+			    				    <tr class="table-hover">
+									  <td class="table-success">{{cam.location}}</td>
+									  <td class="table-warning">{{cam.ip}}</td>
+									  <td class="table-danger">{{cam.orientation}}</td>
+									  <td class="table-primary">{% if cam.active %}Activo{% else %}Desactivado{% endif %}</td>
+									  <td class="table-active">
+									  	<a class="btn btn-outline btn-warning btn-xs" onclick="change()" id="button{{cam.id}}" id="butt{{cam.id}}" href="{% url 'event_report' cam.id '01-01-2000' '01-01-2001' %}">Ver Reportes</a>
+									  </td>
+									</tr>
+			    				{% empty %}
+			    				<h2>No hay cámaras registradas</h2>
+			    				{% endfor %}
+			    			</tbody>
+			    		</table>
+			    	</div>
+			    </div>
+			  </p>
+			</div>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-lg-3">
+			<a class="btn btn-primary btn-lg btn-block" href="#" onclick="window.history.back();">Regresar</a>
+		</div>
+		<br><br><br><br>
+	</div>
+{% endblock %}
+{% block body_tag %}
+<body onload="initial()">
+{% endblock %}
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static 'jquery/jquery-ui.min.css'%}">
+{% endblock %}
+{% block extrajs %}
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+  $( function() {
+    $( "#datepicker1" ).datepicker();
+    $( "#datepicker2" ).datepicker();
+  });
+  function validate() {
+    let dateIn = document.getElementById("datepicker1").value;
+    let dateOut = document.getElementById("datepicker2").value;
+    let date1 = dateIn.split('/');
+    let date2 = dateOut.split('/');
+    if (date2[0] == date1[0]){
+    	if (date1[1] > date2[1]){
+    		alert("Por favor, indique un rango de fechas correcto");
+    		return false;
+    	}
+    }else if (date2[0] < date1[0]){
+    	if(!(date2[0] == 0 && date1[0] == 12)){
+    		alert("Por favor, indique un rango de fechas correcto");
+    		return false;
+    	}
+    }
+    return true;
+  };
+  function change() {
+  	if(validate()){
+	    var date_in = document.getElementById("datepicker1").value;
+	    var date_out = document.getElementById("datepicker2").value;
+	    date_in = date_in.replace(/\//g, '-');
+	    date_out = date_out.replace(/\//g, '-');
+	    {% for cam in cams %}
+	    	var url_button = document.getElementById("button{{cam.id}}").href
+	    	url_button = url_button.replace(/01-01-2000/,date_in.toString());
+	    	url_button = url_button.replace(/01-01-2001/,date_out.toString());
+	    	document.getElementById("button{{cam.id}}").href = url_button;
+	    {% endfor %}
+  	}else{
+	    {% for cam in cams %}
+	    	document.getElementById("button{{cam.id}}").href = '#'
+	    {% endfor %}
+	    location.reload();
+  	};
+  };
+
+  function initial(){
+  	let today = new Date();
+  	let dd = today.getDate();
+	var mm = today.getMonth()+1; //January is 0!
+	var yyyy = today.getFullYear();
+	var dd2 = parseInt(dd) + 1
+  	
+	if(dd<10) {
+	    dd = '0'+dd;
+	} 
+
+	if(dd2<10) {
+	    dd2 = '0'+dd2;
+	} 
+
+	if(mm<10) {
+	    mm = '0'+mm;
+	}
+
+	today = mm + '/' + dd + '/' + yyyy;
+	let tomorrow = mm + '/' + dd2 + '/' + yyyy;
+  	document.getElementById("datepicker1").value = today;
+  	document.getElementById("datepicker2").value = tomorrow;
+  }
+  </script>
+{% endblock %}

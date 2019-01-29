@@ -1,0 +1,28 @@
+{% extends 'base/base.html' %}
+{% block content %}
+	<div class="row">
+		<div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2 col-sm-12 col-xs-12">
+			<div class="jumbotron">
+			  <h1 class="display-3">Usuarios</h1>
+			  <p class="lead">Administrador de los usuarios del sistema de control de tráfico.</p>
+			  <hr class="my-4">
+			    <div class="row">
+			    	<div class="col-lg-3">
+			    		<a href="{% url 'users_list' %}" type="button" class="btn btn-warning btn-lg btn-block">Lista de Usuarios</a>
+			    	</div>
+			    	<div class="col-lg-3">
+			    		<a href="{% url 'users_add' %}" type="button" class="btn btn-success btn-lg btn-block">Agregar Usuario</a>
+			    	</div>
+			    	<div class="col-lg-3">
+			    		<a href="{% url 'users_edit' %}" type="button" class="btn btn-danger btn-lg btn-block">Editar Usuarios</a>
+			    	</div>
+			    	<div class="col-lg-3">
+			    		<a href="#" type="button" class="btn btn-primary btn-lg btn-block" onclick="window.history.back();">Regresar</a>
+			    	</div>
+
+			    </div>
+			  </p>
+			</div>
+		</div>
+	</div>
+{% endblock %}

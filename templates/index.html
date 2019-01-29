@@ -1,0 +1,16 @@
+{% extends 'base/base.html' %}
+{% block content %}
+    <div class="jumbotron">
+      <h1 class="display-3">Control de Tráfico</h1>
+      <p class="lead">Bienvenido al sistema de control y reporte de tráfico de la ciudad de Cajamarca. El sistema se interconecta a las distintas cámaras de tráfico de la ciudad, reconociendo por medio de redes neuronales artificiales la cantidad de vehículos y determinando de forma adecuada los tiempos de cambio de los semáforos para minimizar la congestión vehicular.</p>
+      <hr class="my-4">
+      <p>Elija una opción</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="{% url 'remote_view' %}" role="button">Vista remota de Cámaras</a>
+        <a class="btn btn-secondary btn-lg" href="{% url 'cams_add' %}" role="button">Añadir Cámaras</a>
+        <a class="btn btn-warning btn-lg" href="{% url 'transit_report' %}" role="button">Reportes de Tránsito</a>
+        <a class="btn btn-success btn-lg" href="{% url 'users_admin' %}" role="button">Control de Usuarios</a>
+        <a class="btn btn-danger btn-lg" href="{% url 'logout' %}" role="button">Salir</a>
+      </p>
+    </div>
+{% endblock %}

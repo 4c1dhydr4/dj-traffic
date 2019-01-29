@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Imprimir Eventos</title>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
+	<style type="text/css">
+		.padd{
+			padding-left: 15px !important;
+		}
+	</style>
+</head>
+<body class="padd">
+	<div class="row">
+		<div class="col-lg-8">
+			<div class="text-center">
+				<h3>Reporte de Eventos del control de Tráfico</h3>
+			</div>
+		</div>
+		<div class="col-lg-8">
+			<div>
+				<h5>Cámara: <strong>{{cam.location}}</strong></h5>
+				<h5>IP: <strong>{{cam.ip}}</strong></h5>
+				<h5>Desde: <strong>{{date_in}}</strong></h5>
+				<h5>Hasta: <strong>{{date_out}}</strong></h5>
+				<h5>Estado: <strong>{% if cam.active %}Activo{% else %}No Activo{%endif%}</strong></h5>
+			</div>
+		</div>
+		<div class="col-lg-8">
+			<div>
+				<table class="table table-hover">
+					<thead>
+						<tr class="text-center">
+							{% if flags.date %}<th>Fecha</th>{% endif %}
+							{% if flags.hour %}<th>Hora</th>{% endif %}
+							{% if flags.cars %}<th>N° de Autos Detectados</th>{% endif %}
+							{% if flags.status %}<th>Estado</th>{% endif %}
+							{% if flags.duration %}<th>Duración</th>{% endif %}
+							{% if flags.changes %}<th>Número de Cambios</th>{% endif %}
+						</tr>
+					</thead>
+					<tbody>
+						{% for event in events %}
+							<tr class="text-center">
+								{% if flags.date %}<td>{{event.date|date:"D d M Y"}}</td>{% endif %}
+								{% if flags.hour %}<td>{{event.date|date:"P"}}</td>{% endif %}
+								{% if flags.cars %}<td>{{event.cars}}</td>{% endif %}
+								{% if flags.status %}<td>{% if event.status %}Verde{% else %}Rojo{%endif%}</td>{% endif %}
+								{% if flags.duration %}<td>{{event.duration}} seg.</td>{% endif %}
+								{% if flags.changes %}<td>{{event.changesNumber}}</td>{% endif %}
+							</tr>
+						{% endfor %}
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

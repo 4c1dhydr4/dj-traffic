@@ -1,0 +1,119 @@
+{% extends 'base/base.html' %}
+{% block content %}
+	<div class="row">
+		<div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2 col-sm-12 col-xs-12">
+			<div class="jumbotron">
+			  <h1 class="display-3">Reporte de Tráfico</h1>
+			  <p class="lead">Lista de Eventos del reporte de tráfico de la cámara "{{cam}} - {{cam.ip}}"</p>
+			  <hr class="my-4">
+			    <div class="row">
+			    	<div class="col-lg-12">
+			    		{% if not flag %}
+				    		<form method="POST">
+				    			{% csrf_token %}
+			    				<div class="row offset-lg-2">
+					    			<div class="col-lg-5 col-md-4 col-sm-4 col-xs-4s">
+				    					<div class="card border-primary mb-3" style="max-width: 20rem;">
+										  <div class="card-header">Atributos</div>
+										  <div class="card-body">
+											    <fieldset class="form-group">
+											      <div class="form-check">
+											        <label class="form-check-label">
+											          <input class="form-check-input" type="checkbox" value="" checked=""  id="cb_cars">
+											          Númer de Autos
+											        </label>
+											      </div>
+											      <div class="form-check">
+											        <label class="form-check-label">
+											          <input class="form-check-input" type="checkbox" value="" checked="" id="cb_stat">
+											          Estado del Semáforo
+											        </label>
+											      </div>
+											      <div class="form-check">
+											        <label class="form-check-label">
+											          <input class="form-check-input" type="checkbox" value="" checked="" id="cb_duration">
+											          Duración
+											        </label>
+											      </div>
+											      <div class="form-check">
+											        <label class="form-check-label">
+											          <input class="form-check-input" type="checkbox" value="" checked="" id="cb_changes">
+											         	Número de Cambios
+											        </label>
+											      </div>
+											    </fieldset>
+										  </div>
+										</div>
+					    			</div>
+					    			<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+					    				<a class="btn btn-success btn-lg btn-block"  type="submit" onclick="popup()" href="#" id="linked">Generar Forma</a>
+					    				<a class="btn btn-primary btn-lg btn-block" href="#" onclick="window.history.back();" type="button">Regresar</a>
+					    			</div>
+			    				</div>
+				    		</form>
+			    			<br>
+				    		<table class="table table-hover">
+				    			<thead>
+				    			  <tr>
+				    			    <th class="table-">Fecha</th>
+				    			    <th class="table-success">Hora</th>
+				    			    <th class="table-warning">N° de Autos</th>
+				    			    <th class="">Status</th>
+				    			    <th class="table-primary">Duración</th>
+				    			    <th class="table-active">Número de Cambios</th>
+				    			  </tr>
+				    			</thead>
+				    			<tbody>
+				    				{% for event in events %}
+				    				    <tr class="table-hover">
+										  <td class="table-">{{event.date|date:"D d M Y"}}</td>
+										  <td class="table-success">{{event.date|date:"P"}}</td>
+										  <td class="table-warning">{{event.cars}}</td>
+										  {% if event.status %}
+											  <td class="table-success">Verde</td>
+										  {% else %}
+											  <td class="table-danger">Rojo</td>
+											{% endif %}
+										  <td class="table-primary">{{event.duration}} segundos</td>
+										  <td class="table-active">{{event.changesNumber}}</td>
+										</tr>
+				    				{% empty %}
+				    				<h2>No hay Registro de Eventos</h2>
+				    				{% endfor %}
+				    			</tbody>
+				    		</table>
+			    		{% else %}
+			    			No existen datos entre las féchas especificadas
+			    		{% endif %}
+			    	</div>
+			    </div>
+			  </p>
+			</div>
+		</div>
+	</div>
+{% endblock %}
+{% block extrajs %}
+	<script type="text/javascript">
+		function popup() {
+			let url = "{% url 'event_print' cam.id date_in date_out 'qywxyz' %}";
+			let URL = document.getElementById("linked").href;
+			let cb_fecha = '1';
+			let cb_hora = '1';
+			let cb_cars = document.getElementById("cb_cars").checked;
+			let cb_stat = document.getElementById("cb_stat").checked;
+			let cb_duration = document.getElementById("cb_duration").checked;
+			let cb_changes = document.getElementById("cb_changes").checked;
+			if(cb_cars){cb_cars = '1'}else{cb_cars = '0'};
+			if(cb_stat){cb_stat = '1'}else{cb_stat = '0'};
+			if(cb_duration){cb_duration = '1'}else{cb_duration = '0'};
+			if(cb_changes){cb_changes = '1'}else{cb_changes = '0'};
+			url = url.replace(/q/,cb_fecha).toString();
+			url = url.replace(/y/,cb_hora);
+			url = url.replace(/w/,cb_cars);
+			url = url.replace(/x/,cb_stat);
+			url = url.replace(/y/,cb_duration);
+			url = url.replace(/z/,cb_changes);
+			window.open(url);
+		};
+	</script>
+{% endblock %}

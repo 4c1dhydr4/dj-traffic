@@ -1,0 +1,40 @@
+{% extends 'base/base.html' %}
+{% block content %}
+	<div class="row">
+		{% for cam in cams %}
+		<div class="col-lg-4 col-md-12 col-sm-12 col-xs-12 offset-lg-1">
+			<div class="card mb-3">
+			  <h3 class="card-header">{{cam.location}}</h3>
+			  <div class="card-body">
+			  	<div class="row">
+			  		<div class="col-lg-10 col-md-10 offset-lg-1 offset-md-4">
+	   			  		<iframe src="{{cam.url}}" width="325" height="250"></iframe>
+			  		</div>
+			  	</div>
+			  </div>
+			  <ul class="list-group list-group-flush">
+			    <li class="list-group-item">IP: {{cam.ip}}</li>
+			    <li class="list-group-item">Locación: {{cam.location}}</li>
+			    <li class="list-group-item">Orientación: {{cam.orientation}}</li>
+			    <!-- <li class="list-group-item"></li> -->
+			  </ul>
+			  <div class="card-body">
+			    <a href="{% url 'cams_update' cam.id %}" class="card-link">Editar Camara</a>
+			    <a href="{% url 'cams_delete' cam.id %}" class="card-link">Eliminar Camara</a>
+			  </div>
+			  <div class="card-footer text-muted">
+			    Estado del Semáforo: {% if cam.active %}Activo{% else %}No Activo{% endif %}
+			  </div>
+			</div>
+		</div>
+		{% empty %}
+			No hay registro de cámaras
+		{% endfor %}
+	</div>
+	<div class="row">
+		<div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 offset-lg-3">
+			<a class="btn btn-primary btn-lg btn-block" href="#" onclick="window.history.back();">Regresar</a>
+		</div>
+		<br><br><br><br>
+	</div>
+{% endblock %}

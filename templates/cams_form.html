@@ -1,0 +1,83 @@
+{% extends 'base/base.html' %}
+
+{% block extrahead %}
+{% endblock %}
+{% block content %}
+  <div class="row">
+    <div class="col-lg-8 offset-lg-2 col-md-8 offset-md-2 col-sm-12 col-xs-12">
+      <div class="jumbotron">
+        <h1 class="display-3">{% block title_form %}Agregar Camaras{% endblock %}</h1>
+        <p class="lead">{% block detail_form %}Formulario para añadir cámaras al sistema de control de tráfico{% endblock %}</p>
+        <hr class="my-4">
+        <p>Complete los campos</p>
+          <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+          {% if form.errors %}
+              {% for field in form %}
+                  {% for error in field.errors %}
+                        <div class="alert alert-dismissible alert-danger">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                          <strong>{{ error|escape }}</strong>
+                      </div>
+                  {% endfor %}
+              {% endfor %}
+              {% for error in form.non_field_errors %}
+                  <div class="alert alert-dismissible alert-danger">
+                      <button type="button" class="close" data-dismiss="alert">&times;</button>
+                      <strong>{{ error|escape }}</strong>
+                  </div>
+              {% endfor %}
+          {% endif %}
+          </div>
+          <form action="" method="post">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <label for="IP">IP</label>
+                {{ form.ip }}
+                <small id="" class="form-text">Ingresa la IP de acceso a la cámara</small>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <label for="URL">URL</label>
+                {{ form.url }}
+                <small id="" class="form-text">URL de acceso remoto vía web de la cámara</small>
+              </div>
+            </div>
+            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+              <div class="form-group">
+                <label for="Locación">Locación</label>
+                {{ form.location }}
+                <small id="" class="form-text">Locación física de la cámara en la ciudad</small>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="form-group">
+                <label for="Orientación">Orientación</label>
+                {{ form.orientation }}
+                <small id="" class="form-text">Orientación según Coordenadas</small>
+              </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+              <div class="form-check ">
+                <label for="Active" class="form-check-label">Cámara Activa</label>
+                {{ form.active }}
+                <small id="" class="form-text">Marcado para indicar que la cámara se encuentra activa</small>
+              </div>
+            </div>
+          </div>
+			    <!-- {{ form.as_p }} -->
+          <div class="form-row">
+            <div class="form-group col-md-3">
+  			         <input type="submit" class="btn btn-outline btn-primary btn-lg btn-block" value="{% block but %}Añadir Cámara{% endblock %}"/>
+            </div>
+            <div class="form-group col-md-3">
+    			    <button class="btn btn-outline btn-danger btn-lg btn-block" onclick="window.history.back();" type="button">Cancelar</button>
+            </div>
+          </div>
+          </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
