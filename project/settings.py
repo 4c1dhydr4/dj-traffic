@@ -27,28 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-#Login
-ADMINS = [('Jonathan Solier', 'codigo@upn.pe')]
-
-LOGGING_CONFIG = None
-
-LOGGING = {
-	'version': 1,
-	'disable_existing_loggers': False,
-	'handlers': {
-		'console': {
-			'class': '',
-		},
-	},
-	'loggers': {
-		'django': {
-			'handlers': ['console'],
-			'level': os.getenv('DJANGO_LOG_LEVEL', 'INFO'),
-		},
-	},
-}
-
-
 # Application definition
 
 INSTALLED_APPS = [
