@@ -7,10 +7,8 @@ Además, las cámaras IP conectadas al programa **<vehicle_server.py>** se visua
 Antes de correr las aplicaciones, realizar un semáforo sencillo con cualquier tipo de arduino que soporte la conexión serial por puerto USB, luego, subir el script de la carpeta **<arduino_semaforo>** y probar que el semáforo funciona de forma automática.
 
 Para ejecutar Dj-traffic debemos configurar el script vehicle_server.py con la siguiente información:
- * **cap1 = cv2.VideoCapture('http://'+host1+':8080/video') 
- 	# Donde host1 es la ip de la cámara 1**
- * **cap2 = cv2.VideoCapture('http://'+host2+':8080/video') 
- 	# Donde host1 es la ip de la cámara 2**
+ **cap1 = cv2.VideoCapture('http://'+host1+':8080/video') # Donde host1 es la ip de la cámara 1**
+ **cap2 = cv2.VideoCapture('http://'+host2+':8080/video') # Donde host1 es la ip de la cámara 2**
 
 Para probar las cámaras puedes utilizar IP Webcam disponible en PlayStore para Android.
 
@@ -26,7 +24,7 @@ Ahora instala los requerimientos de python en tu ambiente virtual utilizando el 
 
 **pip install -r requirements.txt**
 
-Por último correr la aplicación en django ejecutando "run server 0:80" en el archivo <manage.py>
+Por último correr la aplicación en django ejecutando "run server 0:80" en el archivo **<manage.py>**
 
 ** python manage.py runserver 0:80 **
 
