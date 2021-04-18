@@ -30,6 +30,6 @@ Por último correr la aplicación en django ejecutando "run server 0:80" en el a
 
 Accesar a la ruta *http://localhost* y visualizar el sistema
 
-Si tienes problemas con la instalación del proyecto, comunicate conmigo al correo *4c1dhydr4@gmail.com*
+Si tienes problemas con la instalación del proyecto, comunicate conmigo al correo *quirozburga@gmail.com*
 
 
