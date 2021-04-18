@@ -1,6 +1,6 @@
 # dj-traffic
 Conteo de autos para el control de semáforos diseñado en python y arduino
-Dj-traffic es un proyecto basado en Djago y Arduino que permite integrar un semáforo hecho con arduino. La aplicación en python se conecta directamente al arduino por el puerto serial, permitiendo controlar de acuerdo al conteo que realiza de autos la librería OpenCV utilizando visión computacional y calcular el lado del semáforo con mayor tráfico y decidir los tiempos para alivianar la carga vehicular.
+Dj-traffic es un proyecto basado en Django y Arduino que permite integrar un semáforo hecho con arduino. La aplicación en python se conecta directamente al arduino por el puerto serial, permitiendo controlar de acuerdo al conteo que realiza de autos la librería OpenCV utilizando visión computacional y calcular el lado del semáforo con mayor tráfico y decidir los tiempos para alivianar la carga vehicular.
 
 Además, las cámaras IP conectadas al programa **<vehicle_server.py>** se visualizarán en el el servidor desarrollado en Django para la visualización de reportes, cámaras y manupulación de datos sobre los vehículos, los cambios del semáforo, entre totros.
 
